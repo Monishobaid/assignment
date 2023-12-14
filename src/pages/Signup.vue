@@ -1,3 +1,28 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+import { auth } from '../firebase/main';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import router from '../routes';
+
+const email = ref<any>('');
+const password = ref<any>('');
+const errorMessage = ref<any>('');
+
+const signup = async () => {
+  try{
+    await createUserWithEmailAndPassword(auth, email.value, password.value);
+    router.push('/');
+  }
+  catch (error) {
+      const errorCode = error;
+      if(errorCode === 'auth/email-already-in-use'){
+          errorMessage.value = 'The email address is already in use';
+          console.log(errorMessage);
+      }
+  }
+};
+</script>
+
 <template>
   <div>
     <div class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -43,28 +68,3 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue';
-import { auth } from '../firebase/main';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import router from '../routes';
-
-const email = ref<any>('');
-const password = ref<any>('');
-const errorMessage = ref<any>('');
-
-const signup = async () => {
-  try{
-    const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
-  //   const user = userCredential.user;
-    router.push('/');
-  }
-  catch (error) {
-      const errorCode = error;
-      if(errorCode === 'auth/email-already-in-use'){
-          errorMessage.value = 'The email address is already in use';
-          console.log(errorMessage);
-      }
-  }
-};
-</script>

@@ -1,39 +1,47 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import ProductCard from '../components/ProductCard.vue';
-import ProductCardSkeleton from '../components/ProductCardSkeleton.vue';
-import { useProductStore, type Product } from '../stores/products';
+import { ref } from "vue";
+import ProductCard from "../components/ProductCard.vue";
+import ProductCardSkeleton from "../components/ProductCardSkeleton.vue";
+import { useProductStore, type Product } from "../stores/products";
+import Nav from "../components/Nav.vue";
 
 const productStore = useProductStore();
-type Order = 'default' | 'priceAsc' | 'priceDesc';
-let order = ref<Order>('default');
-const products = computed(() => productStore.list);
-const productsPL = computed(() => {
-  return products.value.sort((a: Product, b: Product) => {
-    return a.price > b.price ? 1 : -1;
-  });
-});
-const productsPH = computed(() => {
-  return products.value.sort((a: Product, b: Product) => {
-    return a.price < b.price ? 1 : -1;
-  });
-});
-const filteredProducts = computed(() => {
-  if (order.value === 'priceAsc') {
-    return productsPL.value;
-  } else if (order.value === 'priceDesc') {
-    return productsPH.value;
+type Order = "default" | "priceAsc" | "priceDesc";
+let order = ref<Order>("default");
+let products = ref<Product[]>([]);
+let filteredProducts = ref<Product[]>([]);
+
+const sortByPrice = (a: Product, b: Product, order: Order) => {
+  const priceA = a.price || 0;
+  const priceB = b.price || 0;
+
+  return order === "priceAsc" ? priceA - priceB : priceB - priceA;
+};
+
+const updateFilteredProducts = () => {
+  if (order.value === "priceAsc" || order.value === "priceDesc") {
+    filteredProducts.value = products.value.slice().sort((a, b) => sortByPrice(a, b, order.value));
+  } else {
+    filteredProducts.value = products.value.slice();
   }
+};
 
-  return products.value;
-});
-
-function setOrder(val: Order) {
+const setOrder = (val: Order) => {
   order.value = val;
-}
+  updateFilteredProducts();
+};
+
+const loadProducts = () => {
+  products.value = productStore.list;
+  updateFilteredProducts();
+};
+
+loadProducts();
 </script>
 
 <template>
+  <div class="bg-base-100 text-base-content min-h-screen drawer-content">
+    <Nav />
     <div class="p-4 max-w-7xl mx-auto">
       <div class="text-center lg:text-left">
         <div class="block mb-3 font-bold">Sort by:</div>
@@ -65,7 +73,7 @@ function setOrder(val: Order) {
           v-for="n in 15"
           :key="n"
         />
-  
+
         <ProductCard
           v-for="product in filteredProducts"
           :key="product.id"
@@ -73,5 +81,5 @@ function setOrder(val: Order) {
         />
       </div>
     </div>
-  </template>
-  
+  </div>
+</template>

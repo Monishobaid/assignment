@@ -1,3 +1,26 @@
+<script setup lang="ts">
+  import { ref } from 'vue';
+  import { signInWithEmailAndPassword,setPersistence,browserLocalPersistence } from 'firebase/auth';
+  import router from '../routes';
+  import {auth } from '../firebase/main';
+  const email = ref('');
+  const password = ref('');
+  
+  const signIn = async() => {
+    try{
+      await setPersistence(auth, browserLocalPersistence);
+      await signInWithEmailAndPassword(auth, email.value, password.value);
+      console.log('Successful sign-in!');
+      router.push('/');
+    }
+    catch(error) {
+      console.log("reached catch")
+      alert(error);
+    }
+  }
+  
+</script>
+
 <template>
   <div class="">
       <div class="min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -41,27 +64,3 @@
       </div>
   </div>
 </template>
-
-<script setup lang="ts">
-  import { ref } from 'vue';
-  import { signInWithEmailAndPassword,setPersistence,browserLocalPersistence } from 'firebase/auth';
-  import router from '../routes';
-  import {auth } from '../firebase/main';
-  import NavView from '../components/Nav.vue';
-  const email = ref('');
-  const password = ref('');
-  
-  const signIn = async() => {
-    try{
-      await setPersistence(auth, browserLocalPersistence);
-      await signInWithEmailAndPassword(auth, email.value, password.value);
-      console.log('Successful sign-in!');
-      router.push('/');
-    }
-    catch(error) {
-      console.log("reached catch")
-      alert(error);
-    }
-  }
-  
-</script>

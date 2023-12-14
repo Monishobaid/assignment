@@ -4,6 +4,7 @@ import { useCartStore } from "../stores/cart";
 import Search from './Search.vue';
 import routes from "../routes";
 import { getAuth, signOut } from "firebase/auth";
+import DisableButton from "./DisableButton.vue";
 
 const cartStore = useCartStore()
 
@@ -22,7 +23,7 @@ const logOut = async () => {
 </script>
 
 <template>
-    <div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
+    <div v-if="$route.path !== '/login'" class="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
     <div class="flex-none lg:hidden">
         <label for="drawer-input" class="btn btn-square btn-ghost">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
@@ -30,7 +31,7 @@ const logOut = async () => {
         </svg>
         </label>
     </div> 
-    <div class="flex-none px-2 mx-2">
+    <div class="flex-none px-2">
         <span class="text-lg font-bold">
         Shopping Cart</span>
         </div> 
@@ -48,6 +49,8 @@ const logOut = async () => {
         <div class="flex-1 lg:flex-none">
             <Search />
         </div>
-        <button class="btn btn-sm" @click="logOut">Log Out</button>
+        <div class="mx-2">
+            <DisableButton @click="logOut"/>
+        </div>
     </div>
 </template>

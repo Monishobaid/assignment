@@ -19,7 +19,6 @@ const count = computed(() => cartStore.count)
   <div class="drawer">
     <input id="drawer-input" type="checkbox" class="drawer-toggle" />
     <div class="bg-base-100 text-base-content min-h-screen drawer-content">
-      <Nav />
         <router-view>
         </router-view>
     </div>
