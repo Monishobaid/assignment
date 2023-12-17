@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { ref, onMounted } from "vue";
 import { useCartStore } from "../stores/cart";
 import { useProductStore } from "../stores/products";
 import CartCard from "../components/CartCard.vue";
@@ -10,7 +10,24 @@ import Nav from "../components/Nav.vue";
 const cartStore = useCartStore();
 const productStore = useProductStore();
 
-const formattedCart = computed(() => cartStore.formattedCart);
+type CartItem = {
+  id: number;
+  image: string;
+  title: string;
+  quantity: number;
+  cost: number;
+};
+
+const formattedCart = ref<CartItem[]>([]);
+
+onMounted(() => {
+  updateFormattedCart();
+});
+
+function updateFormattedCart() {
+  // Update formattedCart based on the current state of cartStore
+  formattedCart.value = cartStore.formattedCart;
+}
 </script>
 
 <template>

@@ -1,6 +1,7 @@
-const formatter = new Intl.NumberFormat('en-US', {
+const formatter = new Intl.NumberFormat('en-IN', {
     style: 'currency',
-    currency: 'USD',
-})
-
-export const toCurrency = (value: number) => formatter.format(value)
+    currency: 'INR',
+  });
+  
+export const toCurrency = (value: number) => formatter.format(value);
+  

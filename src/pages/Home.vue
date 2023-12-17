@@ -45,22 +45,22 @@ loadProducts();
     <div class="p-4 max-w-7xl mx-auto">
       <div class="text-center lg:text-left">
         <div class="block mb-3 font-bold">Sort by:</div>
-        <div class="divide-x-2 inline-flex border-2 h-16 rounded-lg mb-3">
+        <div class="divide-x-2 inline-flex border-2 h-12 rounded-lg mb-3">
           <button
-            class="px-8 py-4 text-gray-500 hover:text-gray-800"
+            class="px-4 text-gray-500 hover:text-gray-800"
             @click="setOrder('priceAsc')"
           >
             Price &uarr;
           </button>
           <button
             href=""
-            class="px-8 py-4 text-gray-500 hover:text-gray-800"
+            class="px-4 text-gray-500 hover:text-gray-800"
             @click="setOrder('default')"
           >
             What's new
           </button>
           <button
-            class="px-8 py-4 text-gray-500 hover:text-gray-800"
+            class="px-4 text-gray-500 hover:text-gray-800"
             @click="setOrder('priceDesc')"
           >
             Price &darr;

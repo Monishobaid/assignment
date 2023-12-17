@@ -21,7 +21,7 @@
   align-items: center;
   justify-content: flex-start;
   width: 45px;
-  height: 45px;
+  height: 35px;
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -32,7 +32,6 @@
   background-color: #fff;
 }
 
-/* plus sign */
 .sign {
   width: 100%;
   transition-duration: 0.3s;
@@ -48,7 +47,6 @@
 .sign svg path {
   fill: black;
 }
-/* text */
 .text {
   position: absolute;
   right: 0%;
@@ -59,7 +57,6 @@
   font-weight: 600;
   transition-duration: 0.3s;
 }
-/* hover effect on button width */
 .Btn:hover {
   width: 125px;
   border-radius: 40px;
@@ -71,14 +68,16 @@
   transition-duration: 0.3s;
   padding-left: 20px;
 }
-/* hover effect button's text */
+
+
 .Btn:hover .text {
   opacity: 1;
   width: 70%;
   transition-duration: 0.3s;
   padding-right: 10px;
 }
-/* button click effect*/
+
+
 .Btn:active {
   transform: translate(2px, 2px);
 }
