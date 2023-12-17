@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, watch } from "vue";
 import { useCartStore } from "../stores/cart";
 import Search from './Search.vue';
 import routes from "../routes";
@@ -8,8 +8,13 @@ import { getAuth, signOut } from "firebase/auth";
 import DisableButton from "./DisableButton.vue";
 
 const cartStore = useCartStore();
-const count = ref(cartStore.count);
+const count = ref<number>(cartStore.count);
 const auth = getAuth();
+
+// Watch for changes in cartStore.count and update the local count
+watch(() => cartStore.count, (newCount) => {
+  count.value = newCount;
+});
 
 const logOut = async () => {
     try {

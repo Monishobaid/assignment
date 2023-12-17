@@ -4,9 +4,9 @@ import { auth } from '../firebase/main';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import router from '../routes';
 
-const email = ref<any>('');
-const password = ref<any>('');
-const errorMessage = ref<any>('');
+const email = ref<string>('');
+const password = ref<string>('');
+const errorMessage = ref<string>('');
 
 const signup = async () => {
   try{

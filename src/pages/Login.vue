@@ -3,8 +3,8 @@
   import { signInWithEmailAndPassword,setPersistence,browserLocalPersistence } from 'firebase/auth';
   import router from '../routes';
   import {auth } from '../firebase/main';
-  const email = ref('');
-  const password = ref('');
+  const email = ref<string>('');
+  const password = ref<string>('');
   
   const signIn = async() => {
     try{

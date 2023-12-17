@@ -8,8 +8,6 @@ import type { Product } from '../stores/products'
 import { toCurrency } from '../keeper/utils'
 import Nav from "../components/Nav.vue";
 
-import CartCardSkeleton from '../components/CartCardSkeleton.vue'
-
 const cartStore = useCartStore()
 const productStore = useProductStore()
 const route = useRoute()
@@ -34,10 +32,7 @@ onMounted(() => {
   <div class="bg-base-100 text-base-content min-h-screen drawer-content">
     <Nav />
     <div class="p-4 max-w-4xl mx-auto">
-      <div v-if="!productStore.loaded">
-        <CartCardSkeleton />
-      </div>
-      <div v-else-if="product">
+      <div v-if="product">
         <div class="card lg:card-side bordered">
           <figure class="px-10 pt-10">
             <img :src="product.image" alt="Card Image" class="object-contain w-full h-64" />

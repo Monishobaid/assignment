@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import ProductCard from "../components/ProductCard.vue";
-import ProductCardSkeleton from "../components/ProductCardSkeleton.vue";
 import { useProductStore, type Product } from "../stores/products";
 import Nav from "../components/Nav.vue";
 
@@ -68,12 +67,6 @@ loadProducts();
         </div>
       </div>
       <div class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        <ProductCardSkeleton
-          v-show="!productStore.loaded"
-          v-for="n in 15"
-          :key="n"
-        />
-
         <ProductCard
           v-for="product in filteredProducts"
           :key="product.id"
